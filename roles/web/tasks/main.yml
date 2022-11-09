@@ -7,6 +7,7 @@
     name: "{{ user_name }}"
     uid: "{{ user_uid }}"
     home: "{{ user_home }}"
+    shell: /bin/bash
 
 - name: Install node
   ansible.builtin.import_tasks: node.yml

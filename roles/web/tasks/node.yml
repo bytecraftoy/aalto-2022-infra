@@ -11,13 +11,13 @@
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
       args:
         executable: /bin/bash
-        chdir: "{{ ansible_env.HOME }}"
-        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+        chdir: "$HOME"
+        creates: "$HOME/.nvm/nvm.sh"
 
     - name: Install node and set default
       ansible.builtin.shell: >
         nvm install {{ node_version }} && nvm alias default {{ node_version }}
       args:
         executable: /bin/bash
-        chdir: "{{ ansible_env.HOME }}"
-        creates: "{{ ansible_env.HOME }}/.nvm/versions/node/v{{ node_version }}"
+        chdir: "$HOME"
+        creates: "$HOME/.nvm/versions/node/v{{ node_version }}"
