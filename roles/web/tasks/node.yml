@@ -1,7 +1,7 @@
-- name: Install nvm and node
+- name: Install NVM and NodeJS
   become: true
   become_user: "{{ user_name }}"
-  # we need interactive shell to source .bash_profile to activate nvm automatically
+  # we need interactive shell to source .bash_profile in order to activate nvm automatically
   become_flags: -i
   vars:
     node_version: 18.12.1

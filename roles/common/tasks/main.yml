@@ -5,3 +5,13 @@
     name: vim
     state: present
   tags: vim
+
+- name: Install acl
+  ansible.builtin.apt:
+    name: acl
+    state: present
+
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: present
