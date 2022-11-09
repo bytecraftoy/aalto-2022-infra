@@ -10,6 +10,6 @@ jobs:
         - name: install deps
           run: ansible-galaxy install -r requirements.yml
         - name: Add SSH key
-          run: echo $SSH_KEY > .ssh/id_rsa
+          run: mkdir -p ~/.ssh && echo $SSH_KEY > ~/.ssh/id_rsa
         - name: Run Ansible in check mode
           run: ansible-playbook --check --diff site.yml -i hosts
