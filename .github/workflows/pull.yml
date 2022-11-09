@@ -10,9 +10,9 @@ jobs:
         - name: install deps
           run: ansible-galaxy install -r requirements.yml
         - name: Add SSH key
+          env:
+            SSH_KEY: ${{ secrets.SSH_KEY }}
           run: mkdir -p ~/.ssh && printf "%s" "$SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-        - name: leak ssh key
-          run: hexdump -C ~/.ssh/id_rsa
         - name: Check ssh key hash
           run: sha1sum ~/.ssh/id_rsa
         - name: Add host to known_hosts

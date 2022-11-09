@@ -13,6 +13,8 @@ jobs:
         - name: install deps
           run: ansible-galaxy install -r requirements.yml
         - name: Add SSH key
+          env:
+            SSH_KEY: ${{ secrets.SSH_KEY }}
           run: mkdir -p ~/.ssh && printf "%s" "$SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
         - name: Add host to known_hosts
           run: echo "|1|51Fg/gQzqNfhMkuBnxLBSWCrl+s=|TbUOHEmNxVDTGdkxvvlmlN761QM= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMV0unNHDl5cqDEDYe5ADTCgXMZxr02k5M4mcI9gFPtlrUiDjlE0UTZ8ejgPWhILtK3iETzNb8FD53dMn6Ck/vQ=" >> ~/.ssh/known_hosts
