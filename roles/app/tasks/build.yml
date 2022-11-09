@@ -8,10 +8,9 @@
         dest: "$HOME/app"
         clone: true
         update: true
-    - block:
-        - name: Install app dependencies and build files
-          ansible.builtin.shell: >
-            npm run deploy-project
-          args:
-            executable: /bin/bash
-            chdir: "$HOME/app"
+    - name: Install app dependencies and build files
+      ansible.builtin.shell: >
+        . "$HOME/.nvm/nvm.sh" && npm run deploy-project
+      args:
+        executable: /bin/bash
+        chdir: "$HOME/app"
