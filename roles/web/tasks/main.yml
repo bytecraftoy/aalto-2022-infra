@@ -1,5 +1,5 @@
 - name: Install NGINX
-  import_tasks: nginx.yml
+  ansible.builtin.import_tasks: nginx.yml
   tags: nginx
 
 - name: Add the app user
@@ -9,5 +9,5 @@
     home: "{{ user_home }}"
 
 - name: Install node
-  import_tasks: node.yml
+  ansible.builtin.import_tasks: node.yml
   tags: node

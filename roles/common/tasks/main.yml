@@ -1,17 +1,10 @@
 ---
-# Common settings...
-- name: Install vim
+- name: Install common dependencies
   ansible.builtin.apt:
-    name: vim
+    name: "{{ item }}"
     state: present
-  tags: vim
-
-- name: Install acl
-  ansible.builtin.apt:
-    name: acl
-    state: present
-
-- name: Install sudo
-  ansible.builtin.apt:
-    name: sudo
-    state: present
+  with_items:
+    - sudo
+    - acl
+  tags:
+    deps
