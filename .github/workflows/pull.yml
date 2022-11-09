@@ -6,7 +6,7 @@ jobs:
         steps:
         - uses: actions/checkout@v2
         - name: Install ansible
-          run: apt install ansible -y
+          run: sudo apt install ansible -y
         - name: install deps
           run: ansible-galaxy install -r requirements.yml
         - name: Add SSH key
