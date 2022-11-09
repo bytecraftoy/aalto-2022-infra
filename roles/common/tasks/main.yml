@@ -1,7 +1,7 @@
 ---
 # Common settings...
 - name: Install vim
-  apt:
+  ansible.builtin.apt:
     name: vim
     state: present
   tags: vim
