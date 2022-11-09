@@ -1,0 +1,39 @@
+- name: Install NGINX
+  ansible.builtin.include_role:
+    name: nginxinc.nginx
+  vars:
+    nginx_service_modify: true
+    nginx_service_timeout: 95
+    nginx_logrotate_conf_enable: true
+    nginx_logrotate_conf:
+      paths:
+        - /var/log/nginx/*.log
+      options:
+        - daily
+        - missingok
+        - rotate 14
+        - compress
+        - delaycompress
+        - notifempty
+        - sharedscriptsgg
+
+- name: Check if NGINX is installed
+  ansible.builtin.package:
+    name: nginx
+    state: present
+  check_mode: true
+  register: install
+  failed_when: (install is changed) or (install is failed)
+
+- name: Check if NGINX service is running
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+  check_mode: true
+  register: service
+  failed_when: (service is changed) or (service is failed)
+
+- name: Verify NGINX is up and running
+  ansible.builtin.uri:
+    url: http://localhost

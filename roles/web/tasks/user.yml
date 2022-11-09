@@ -1,7 +1,0 @@
-- name: Add the app user
-  ansible.builtin.user:
-    name: "{{ user_name }}"
-    uid: "{{ user_uid }}"
-    umask: 750
-    password_lock: true
-    home: "{{ user_home }}"
