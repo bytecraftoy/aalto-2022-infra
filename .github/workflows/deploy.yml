@@ -14,5 +14,7 @@ jobs:
           run: ansible-galaxy install -r requirements.yml
         - name: Add SSH key
           run: mkdir -p ~/.ssh && echo $SSH_KEY > ~/.ssh/id_rsa
+        - name: Add host to known_hosts
+          run: echo "|1|51Fg/gQzqNfhMkuBnxLBSWCrl+s=|TbUOHEmNxVDTGdkxvvlmlN761QM= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMV0unNHDl5cqDEDYe5ADTCgXMZxr02k5M4mcI9gFPtlrUiDjlE0UTZ8ejgPWhILtK3iETzNb8FD53dMn6Ck/vQ=" >> ~/.ssh/known_hosts
         - name: Run Ansible
           run: ansible-playbook --diff site.yml -i hosts
