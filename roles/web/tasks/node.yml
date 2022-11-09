@@ -1,8 +1,6 @@
 - name: Install NVM and NodeJS
   become: true
   become_user: "{{ user_name }}"
-  # we need interactive shell to source .bash_profile in order to activate nvm automatically
-  become_flags: -i
   vars:
     node_version: 18.12.1
   block:
@@ -16,7 +14,7 @@
 
     - name: Install node and set default
       ansible.builtin.shell: >
-        nvm install {{ node_version }} && nvm alias default {{ node_version }}
+        source $HOME/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}
       args:
         executable: /bin/bash
         chdir: "$HOME"
