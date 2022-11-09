@@ -1,0 +1,17 @@
+- name: Build the app
+  become: true
+  become_user: "{{ user_name }}"
+  block:
+    - name: Clone the repository
+      ansible.builtin.git:
+        repo: https://github.com/bytecraftoy/aalto-2022.git
+        dest: "$HOME/app"
+        clone: true
+        update: true
+    - block:
+        - name: Install app dependencies and build files
+          ansible.builtin.shell: >
+            npm run deploy-project
+          args:
+            executable: /bin/bash
+            chdir: "$HOME/app"
