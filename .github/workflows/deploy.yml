@@ -1,0 +1,17 @@
+name: Run ansible in check mode
+on:
+  push:
+    branches:
+      - main
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        - uses: actions/checkout@v2
+        - name: Install ansible
+          run: apt install ansible -y
+        - name: install deps
+          run: ansible-galaxy install -r requirements.yml
+        - name: Add SSH key
+          run: echo $SSH_KEY > .ssh/id_rsa
+        - name: Run Ansible
+          run: ansible-playbook --diff site.yml -i hosts
