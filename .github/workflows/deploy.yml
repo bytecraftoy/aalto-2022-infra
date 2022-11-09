@@ -1,10 +1,10 @@
-name: Run ansible in check mode
+name: Run ansible in deploy mode
 on:
   push:
     branches:
       - main
 jobs:
-    check:
+    deploy:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
