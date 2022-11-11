@@ -3,10 +3,11 @@
 - hosts: all
   remote_user: root
   roles:
-  - common
+    - common
+    - app
 
 # Add Nginx + logrotate
 - hosts: server1
   remote_user: root
   roles:
-  - web
+    - web

@@ -1,0 +1,21 @@
+- name: Install NVM and NodeJS
+  become: true
+  become_user: "{{ user_name }}"
+  vars:
+    node_version: 18.12.1
+  block:
+    - name: Install nvm
+      ansible.builtin.shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+      args:
+        executable: /bin/bash
+        chdir: "$HOME"
+        creates: "$HOME/.nvm/nvm.sh"
+
+    - name: Install node and set default
+      ansible.builtin.shell: >
+        source $HOME/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}
+      args:
+        executable: /bin/bash
+        chdir: "$HOME"
+        creates: "$HOME/.nvm/versions/node/v{{ node_version }}"
