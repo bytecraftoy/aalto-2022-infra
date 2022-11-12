@@ -1,0 +1,15 @@
+[Unit]
+Description=Aalto 2022 backend service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User={{ user_name }}
+Group={{ user_name }}
+WorkingDirectory={{ live_dir }}
+ExecStart=bash -c "node index.js"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

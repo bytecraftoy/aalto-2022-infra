@@ -12,3 +12,7 @@
 - name: Fetch and build project
   ansible.builtin.import_tasks: build.yml
   tags: build
+
+- name: Install the built project
+  ansible.builtin.import_tasks: install.yml
+  tags: install
