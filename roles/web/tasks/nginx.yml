@@ -42,9 +42,11 @@
   ansible.builtin.template:
     src: backend.j2
     dest: /etc/nginx/sites-available/backend
+    mode: "644"
+  notify: Reload NGINX
 
 - name: Create symlink from backend to default site
-  file:
+  ansible.builtin.file:
     src: /etc/nginx/sites-available/backend
     dest: /etc/nginx/sites-enabled/default
     state: link
@@ -53,11 +55,7 @@
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/nginx.conf
+    mode: "644"
     validate: nginx -tc %s
     backup: true
-
-- name: Sanity check that configuration is valid
-  ansible.builtin.command: nginx -t
-
-- name: Reload NGINX configuration
-  ansible.builtin.command: nginx -sreload
+  notify: Reload NGINX

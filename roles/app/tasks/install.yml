@@ -30,7 +30,10 @@
     dest: "/etc/systemd/system/{{ service_name }}.service"
 
 - name: Start backend service
-  ansible.builtin.systemd: state=started name="{{ service_name }}" daemon_reload=yes
+  ansible.builtin.systemd:
+    state: started
+    name: "{{ service_name }}"
+    daemon_reload: true
 
 - name: Check if backend service is running
   ansible.builtin.service:

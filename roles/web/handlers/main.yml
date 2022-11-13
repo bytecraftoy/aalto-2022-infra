@@ -1,0 +1,7 @@
+- name: Reload NGINX
+  block:
+    - name: Sanity check that configuration is valid
+      ansible.builtin.command: nginx -t
+
+    - name: Reload NGINX configuration
+      ansible.builtin.command: nginx -sreload
