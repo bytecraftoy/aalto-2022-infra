@@ -1,7 +1,7 @@
 - name: Copy frontend static files to nginx
   ansible.builtin.copy:
     src: "{{ app_dir }}/deploy/public/"
-    dest: /var/www/html/public
+    dest: /var/www/html
     owner: root
     group: root
     mode: "0755"
