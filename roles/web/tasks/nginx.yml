@@ -38,6 +38,15 @@
   ansible.builtin.uri:
     url: http://localhost
 
+- name: Create NGINX site directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - /etc/nginx/sites-enabled
+    - /etc/nginx/sites-available
+
 - name: Copy backend site config
   ansible.builtin.template:
     src: backend.j2
