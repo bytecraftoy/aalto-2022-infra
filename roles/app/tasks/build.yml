@@ -5,12 +5,19 @@
     - name: Clone the repository
       ansible.builtin.git:
         repo: https://github.com/bytecraftoy/aalto-2022.git
-        dest: "$HOME/app"
+        dest: "{{ app_dir }}"
         clone: true
         update: true
+        # overwrite local changes
+        force: true
+      register: git_status
+    - name: Debug git status
+      ansible.builtin.debug:
+        var: git_status
     - name: Install app dependencies and build files
       ansible.builtin.shell: >
         . "$HOME/.nvm/nvm.sh" && npm run deploy-project
       args:
         executable: /bin/bash
-        chdir: "$HOME/app"
+        chdir: "{{ app_dir }}"
+      when: git_status.before != git_status.after

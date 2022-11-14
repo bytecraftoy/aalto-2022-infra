@@ -37,3 +37,25 @@
 - name: Verify NGINX is up and running
   ansible.builtin.uri:
     url: http://localhost
+
+- name: Copy backend site config
+  ansible.builtin.template:
+    src: backend.j2
+    dest: /etc/nginx/sites-available/backend
+    mode: "644"
+  notify: Reload NGINX
+
+- name: Create symlink from backend to default site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/backend
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
+- name: Copy NGINX main config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: "644"
+    validate: nginx -tc %s
+    backup: true
+  notify: Reload NGINX
