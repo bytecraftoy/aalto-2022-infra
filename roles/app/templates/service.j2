@@ -8,7 +8,7 @@ Type=simple
 User={{ user_name }}
 Group={{ user_name }}
 WorkingDirectory={{ live_dir }}
-ExecStart=bash -c "node index.js"
+ExecStart=bash -c ". ~/.nvm/nvm.sh && node index.js"
 Restart=on-failure
 
 [Install]
