@@ -1,25 +1,30 @@
-- name: Copy frontend static files to nginx
-  ansible.builtin.copy:
-    src: "{{ app_dir }}/deploy/public/"
-    dest: /srv/http
-    owner: root
-    group: root
+- name: Make sure app live folder exists
+  ansible.builtin.file:
+    path: "{{ live_dir }}"
+    state: directory
     mode: "0755"
-    remote_src: true
 
-- name: Copy backend files to live folder
+- name: Check if backend files exist
+  ansible.builtin.stat:
+    path: "{{ live_dir }}/index.js"
+  register: indexjs
+
+- name: Copy dummy index.js when it does not exist
   ansible.builtin.copy:
-    src: "{{ app_dir }}/deploy/"
+    src: index.js
     dest: "{{ live_dir }}"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
-    mode: "0750"
-    remote_src: true
+    mode: "0755"
+  when: not indexjs.stat.exists
 
 - name: Install backend systemd unit file
   ansible.builtin.template:
     src: service.j2
     dest: "/etc/systemd/system/{{ service_name }}.service"
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Start backend service
   ansible.builtin.systemd:
