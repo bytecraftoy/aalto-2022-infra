@@ -5,6 +5,7 @@
     node_version: 18.12.1
   block:
     - name: Install nvm
+      # noqa command-instead-of-module
       ansible.builtin.shell: >
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
       args:

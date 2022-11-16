@@ -6,9 +6,11 @@ jobs:
         steps:
         - uses: actions/checkout@v2
         - name: Install ansible
-          run: sudo apt install ansible -y
-        - name: install deps
+          run: sudo apt install ansible ansible-lint -y
+        - name: Install deps
           run: ansible-galaxy install -r requirements.yml
+        - name: Check for issues with ansible-lint
+          run: ansible-lint --profile=shared
         - name: Add SSH key
           env:
             SSH_KEY: ${{ secrets.SSH_KEY }}
