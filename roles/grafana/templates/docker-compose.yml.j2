@@ -1,0 +1,14 @@
+version: "3"
+
+volumes:
+  grafana-storage:
+
+services:
+  web:
+    image: docker.io/grafana/grafana-oss:8.2.0
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - /etc/grafana.ini:/etc/grafana/grafana.ini
+    ports:
+      - 3000:3000
+    user: "472:0"
