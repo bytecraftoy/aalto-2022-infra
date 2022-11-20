@@ -1,0 +1,79 @@
+- name: Create a network to connect containers with
+  community.docker.docker_network:
+    name: loki
+
+- name: Create docker-compose directory
+  ansible.builtin.file:
+    path: /root/loki
+    state: directory
+    mode: '0755'
+
+- name: Check if docker-compose.yml already exists
+  ansible.builtin.stat:
+    path: /root/loki/docker-compose.yml
+  register: stat_docker_compose
+
+- name: Tear down existing container(s)
+  community.docker.docker_compose:
+    project_src: /root/loki
+    state: absent
+  when: stat_docker_compose.stat.exists
+  register: teardown
+  failed_when: not teardown.changed
+
+- name: Copy docker-compose.yml to remote
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /root/loki/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy Loki config
+  ansible.builtin.template:
+    src: loki-config.yml.j2
+    dest: /etc/loki.yml
+    mode: "644"
+    backup: true
+
+- name: Copy Promtail config
+  ansible.builtin.template:
+    src: promtail-config.yml.j2
+    dest: /etc/promtail.yml
+    mode: "644"
+    backup: true
+
+- name: Create Loki storage folder
+  ansible.builtin.file:
+    path: /var/lib/loki
+    state: directory
+    owner: 10001
+    group: 10001
+    mode: '0750'
+
+- name: Run docker compose to create Loki+Promtail container
+  community.docker.docker_compose:
+    project_src: /root/loki
+  register: output
+
+- name: Show docker container information
+  ansible.builtin.debug:
+    var: output
+
+- name: Run docker compose again
+  community.docker.docker_compose:
+    project_src: /root/loki
+    build: false
+  register: output
+
+- name: Check that app is up
+  ansible.builtin.assert:
+    that: not output.changed
+
+- name: Verify Loki is up and running
+  ansible.builtin.uri:
+    url: http://localhost:3100/metrics
+  register: _result
+  until: _result.status == 200
+  retries: 10
+  delay: 3

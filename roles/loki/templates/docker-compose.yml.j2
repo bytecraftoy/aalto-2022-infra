@@ -1,0 +1,27 @@
+version: "3"
+
+networks:
+  loki:
+    name: loki
+    external: true
+
+services:
+  loki:
+    image: grafana/loki:2.6.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki.yml
+    volumes:
+      - /etc/loki.yml:/etc/loki.yml:ro
+      - /var/lib/loki:/var/lib/loki
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.6.0
+    command: -config.file=/etc/promtail.yml
+    volumes:
+      - /var/log:/varlogs:ro
+      - /etc/promtail.yml:/etc/promtail.yml:ro
+    networks:
+      - loki

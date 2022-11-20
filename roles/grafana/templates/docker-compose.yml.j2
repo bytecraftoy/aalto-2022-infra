@@ -3,6 +3,11 @@ version: "3"
 volumes:
   grafana-storage:
 
+networks:
+  loki:
+    name: loki
+    external: true
+
 services:
   web:
     image: docker.io/grafana/grafana-oss:8.2.0
@@ -12,3 +17,5 @@ services:
     ports:
       - 3000:3000
     user: "472:0"
+    networks:
+      - loki
