@@ -1,0 +1,4 @@
+---
+service_name: "aalto_2022_proxy"
+docker_image: "proxy_image"
+docker_container: "proxy_container"

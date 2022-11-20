@@ -5,6 +5,7 @@
   roles:
     - common
     - app
+    - proxy
 
 # Add Nginx + logrotate
 - hosts: server1

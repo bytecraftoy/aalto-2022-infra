@@ -8,3 +8,10 @@
     - acl
   tags:
     deps
+
+- name: Add the app user
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    uid: "{{ user_uid }}"
+    home: "{{ user_home }}"
+    shell: /bin/bash
