@@ -1,4 +1,4 @@
-- name: Install backend systemd unit file
+- name: Install proxy systemd unit file
   ansible.builtin.template:
     src: service.j2
     dest: "/etc/systemd/system/{{ service_name }}.service"
