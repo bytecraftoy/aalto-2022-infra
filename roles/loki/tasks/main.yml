@@ -6,7 +6,7 @@
   ansible.builtin.file:
     path: /root/loki
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Check if docker-compose.yml already exists
   ansible.builtin.stat:
@@ -27,19 +27,12 @@
     dest: /root/loki/docker-compose.yml
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy Loki config
   ansible.builtin.template:
     src: loki-config.yml.j2
     dest: /etc/loki.yml
-    mode: "644"
-    backup: true
-
-- name: Copy Promtail config
-  ansible.builtin.template:
-    src: promtail-config.yml.j2
-    dest: /etc/promtail.yml
     mode: "644"
     backup: true
 
@@ -49,7 +42,22 @@
     state: directory
     owner: 10001
     group: 10001
-    mode: '0750'
+    mode: "0750"
+
+- name: Copy Promtail config
+  ansible.builtin.template:
+    src: promtail-config.yml.j2
+    dest: /etc/promtail.yml
+    mode: "644"
+    backup: true
+
+- name: Create Promtail storage folder
+  ansible.builtin.file:
+    path: /var/lib/promtail
+    state: directory
+    owner: 0
+    group: 0
+    mode: "0750"
 
 - name: Run docker compose to create Loki+Promtail container
   community.docker.docker_compose:

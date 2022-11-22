@@ -23,5 +23,6 @@ services:
     volumes:
       - /var/log:/varlogs:ro
       - /etc/promtail.yml:/etc/promtail.yml:ro
+      - /var/lib/promtail:/root
     networks:
       - loki
