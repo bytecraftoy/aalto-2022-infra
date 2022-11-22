@@ -4,11 +4,9 @@ Wants=docker.service
 After=docker.service
 
 [Service]
-Type=simple
-#EnvironmentFile=/etc/aaltoproject.conf
 ExecStartPre=-docker stop {{ docker_container }}
 ExecStartPre=-docker rm {{ docker_container }}
-ExecStart=docker run --env-file /etc/aaltoproject.conf -p 8080:8080 --name {{ docker_container }} {{ docker_image }}
+ExecStart=docker run --env-file /etc/aaltoproject.conf -p 8080:8080 --name {{ docker_container }} {{ docker_image }}:{{ docker_image_version }}
 ExecStop=docker stop {{ docker_container }}
 
 [Install]
