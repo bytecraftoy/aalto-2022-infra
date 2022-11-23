@@ -4,6 +4,14 @@ server:
   http_listen_port: 3100
   grpc_listen_port: 9096
 
+# https://github.com/grafana/loki/issues/5123#issuecomment-1188968570
+query_scheduler:
+  max_outstanding_requests_per_tenant: 10000
+      
+# https://github.com/grafana/loki/issues/5123#issuecomment-1188968570
+frontend:
+  max_outstanding_per_tenant: 10000
+
 common:
   path_prefix: /var/lib/loki
   storage:
