@@ -74,7 +74,7 @@
     build: false
   register: output
 
-- name: Check that app is up
+- name: Check that containers started succesfully
   ansible.builtin.assert:
     that: not output.changed
 
