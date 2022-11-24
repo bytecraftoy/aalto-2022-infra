@@ -1,0 +1,13 @@
+[Unit]
+Description=Aalto 2022 proxy service
+Wants=docker.service
+After=docker.service
+
+[Service]
+ExecStartPre=-docker stop {{ docker_container }}
+ExecStartPre=-docker rm {{ docker_container }}
+ExecStart=docker run --rm --env-file /etc/aaltoproject.conf -p 8080:8080 --name {{ docker_container }} localhost/{{ docker_image }}:{{ docker_image_version }}
+ExecStop=docker stop {{ docker_container }}
+
+[Install]
+WantedBy=multi-user.target

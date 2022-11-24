@@ -1,8 +1,4 @@
 ---
-user_name: "app"
-user_uid: 1000
-user_home: "/home/{{ user_name }}"
-app_dir: "{{ user_home }}/app"
 live_dir: "{{ user_home }}/live"
 # systemd service name
 service_name: "aalto_2022_backend"
