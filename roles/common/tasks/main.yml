@@ -6,6 +6,8 @@
   with_items:
     - sudo
     - acl
+    - docker.io
+    - docker-compose
   tags:
     deps
 
