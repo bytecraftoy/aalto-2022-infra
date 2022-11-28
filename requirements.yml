@@ -1,3 +1,5 @@
 ---
 roles:
   - name: nginxinc.nginx
+collections:
+  - name: community.docker

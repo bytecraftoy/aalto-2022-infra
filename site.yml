@@ -12,3 +12,5 @@
   remote_user: root
   roles:
     - web
+    - loki
+    - grafana
