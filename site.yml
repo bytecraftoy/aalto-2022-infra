@@ -12,6 +12,9 @@
   remote_user: root
   vars:
     certbot_create_method: standalone
+    certbot_certs:
+      - domains:
+          - aalto.bytecraft.fi
   roles:
     - role: geerlingguy.certbot
       tags: certbot
