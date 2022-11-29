@@ -8,7 +8,7 @@
     - sudo
     - docker-compose
     - docker.io
-    - nftables
+    - ufw
   tags: deps
 
 - name: Add the app user
@@ -18,6 +18,6 @@
     home: "{{ user_home }}"
     shell: /bin/bash
 
-- name: Set up firewall with Nftables
-  ansible.builtin.import_tasks: nftables.yml
+- name: Set up firewall with UFW
+  ansible.builtin.import_tasks: ufw.yml
   tags: firewall
