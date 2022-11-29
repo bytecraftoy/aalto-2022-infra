@@ -1,0 +1,15 @@
+---
+- name: Restart docker service
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+  listen: "Restart Docker"
+
+- name: Check if docker service is running
+  ansible.builtin.service:
+    name: docker
+    state: started
+  check_mode: true
+  register: service
+  failed_when: (service is changed) or (service is failed)
+  listen: "Restart Docker"

@@ -11,6 +11,13 @@
     - ufw
   tags: deps
 
+- name: Copy docker daemon config
+  ansible.builtin.copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    mode: "0600"
+  notify: "Restart Docker"
+
 - name: Add the app user
   ansible.builtin.user:
     name: "{{ user_name }}"
