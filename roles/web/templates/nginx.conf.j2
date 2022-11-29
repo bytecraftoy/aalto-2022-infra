@@ -70,6 +70,12 @@ http {
         server 127.0.0.1:3000;
     }
 
+    server {
+        listen 80 default_server;
+
+        return 301 https://$host$request_uri;
+    }
+
     # not needed for now
     #include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
