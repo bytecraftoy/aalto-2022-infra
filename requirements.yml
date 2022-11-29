@@ -3,3 +3,4 @@ roles:
   - name: nginxinc.nginx
 collections:
   - name: community.docker
+  - name: community.general

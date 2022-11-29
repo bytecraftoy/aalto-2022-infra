@@ -1,0 +1,9 @@
+- name: Allow SSH through UFW
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Set policy to reject and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: reject
