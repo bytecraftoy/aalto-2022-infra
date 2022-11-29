@@ -4,12 +4,12 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - sudo
     - acl
-    - docker.io
+    - sudo
     - docker-compose
-  tags:
-    deps
+    - docker.io
+    - nftables
+  tags: deps
 
 - name: Add the app user
   ansible.builtin.user:
@@ -17,3 +17,7 @@
     uid: "{{ user_uid }}"
     home: "{{ user_home }}"
     shell: /bin/bash
+
+- name: Set up firewall with Nftables
+  ansible.builtin.import_tasks: nftables.yml
+  tags: firewall

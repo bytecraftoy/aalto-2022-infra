@@ -1,0 +1,23 @@
+- name: Copy nftables.conf to remote
+  ansible.builtin.copy:
+    src: nftables.conf
+    dest: /etc/nftables.conf
+    owner: root
+    group: root
+    mode: "0640"
+    validate: /usr/sbin/nft --check --file %s
+
+- name: Restart nftables service
+  ansible.builtin.systemd:
+    name: "nftables"
+    state: restarted
+    enabled: true
+      
+- name: Check if nftables service is running
+  ansible.builtin.service:
+    name: nftables
+    state: started
+    enabled: true
+  check_mode: true
+  register: service
+  failed_when: (service is changed) or (service is failed)
