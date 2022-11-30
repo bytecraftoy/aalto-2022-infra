@@ -4,6 +4,8 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+Environment="ENVIRONMENT=openai"
+
 Type=simple
 User={{ user_name }}
 Group={{ user_name }}
