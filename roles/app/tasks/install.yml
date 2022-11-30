@@ -44,4 +44,4 @@
 
 - name: Verify backend is up and running
   ansible.builtin.uri:
-    url: http://localhost:3030
+    url: http://localhost:3030/api/mirror
