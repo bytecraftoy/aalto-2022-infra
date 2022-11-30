@@ -7,10 +7,20 @@
     - app
     - proxy
 
-# Add Nginx + logrotate
+# Add web services
 - hosts: server1
   remote_user: root
+  vars:
+    certbot_create_method: standalone
+    certbot_certs:
+      - domains:
+          - aalto.bytecraft.fi
   roles:
-    - web
-    - loki
-    - grafana
+    - role: geerlingguy.certbot
+      tags: certbot
+    - role: web
+      tags: web
+    - role: loki
+      tags: loki
+    - role: grafana
+      tags: grafana
