@@ -75,6 +75,7 @@
 
     - name: Validate NGINX config
       ansible.builtin.command: nginx -t
+      changed_when: false
 
   rescue:
     - name: Restore backend config
@@ -82,12 +83,14 @@
         remote_src: true
         src: "{{ conf_backend['backup_file'] }}"
         dest: /etc/nginx/sites-available/backend
+        mode: "644"
 
     - name: Restore main config
       ansible.builtin.copy:
         remote_src: true
         src: "{{ conf_main['backup_file'] }}"
         dest: /etc/nginx/nginx.conf
+        mode: "644"
 
   always:
     - name: Delete backup files
