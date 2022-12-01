@@ -100,6 +100,7 @@
       with_items:
         - "{{ conf_backend['backup_file'] }}"
         - "{{ conf_main['backup_file'] }}"
+      when: not ansible_check_mode
 
 - name: Open up TCP ports 80 and 443
   community.general.ufw:
