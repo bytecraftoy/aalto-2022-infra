@@ -8,6 +8,7 @@
     nginx_logrotate_conf:
       paths:
         - /var/log/nginx/*.log
+        - /var/log/nginx/*.json
       options:
         - daily
         - missingok
