@@ -15,7 +15,7 @@
     certbot_create_if_missing: true
     certbot_certs:
       - email: jaakko.hannikainen@bytecraft.fi
-      - domains:
+        domains:
           - aalto.bytecraft.fi
   roles:
     - role: geerlingguy.certbot
