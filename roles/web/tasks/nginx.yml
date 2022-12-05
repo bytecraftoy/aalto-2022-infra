@@ -94,6 +94,10 @@
         dest: /etc/nginx/nginx.conf
         mode: "644"
 
+    - name: Re-raise the error
+      fail:
+        msg: "{{ ansible_failed_result }}"
+
   always:
     - name: Delete backup files
       ansible.builtin.file:
