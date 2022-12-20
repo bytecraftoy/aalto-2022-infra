@@ -5,6 +5,7 @@ After=network-online.target
 
 [Service]
 Environment="ENVIRONMENT=openai"
+Environment="PROXYURL=127.0.0.1:8080"
 
 Type=simple
 User={{ user_name }}
