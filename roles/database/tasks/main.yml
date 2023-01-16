@@ -10,7 +10,7 @@
     state: started
     enabled: true
 
-- name: shit
+- name: Configure database
   become: true
   become_user: postgres
   block:
