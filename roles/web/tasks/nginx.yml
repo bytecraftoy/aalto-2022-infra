@@ -38,7 +38,8 @@
 - name: Verify NGINX is up and running
   ansible.builtin.uri:
     url: http://localhost
-    status_code: 401
+    follow_redirects: none
+    status_code: 301
 
 - name: Create NGINX site directories
   ansible.builtin.file:
