@@ -1,0 +1,27 @@
+- name: "Start and enable services"
+  service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: shit
+  become: true
+  become_user: postgres
+  block:
+    - name: Create a new database for backend
+      community.postgresql.postgresql_db:
+        name: "{{ backend_database_name }}"
+
+    - name: Create backend database user
+      community.postgresql.postgresql_user:
+        db: "{{ backend_database_name }}"
+        name: "{{ backend_database_user }}"
+        password: "{{ backend_database_password }}"
+
+    - name: Grant all priviliges to the backend user for backend db
+      community.postgresql.postgresql_privs:
+        type: database
+        db: "{{ backend_database_name }}"
+        role: "{{ backend_database_user }}"
+        privs: ALL
+        grant_option: false

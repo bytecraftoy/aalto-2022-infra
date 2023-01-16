@@ -4,6 +4,8 @@
   remote_user: root
   roles:
     - common
+    - role: database
+      tags: database
     - app
     - proxy
 
