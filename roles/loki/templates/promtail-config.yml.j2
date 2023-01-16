@@ -28,3 +28,16 @@ scrape_configs:
       agent: promtail
       host: {{ ansible_hostname }}
       __path__: /varlogs/nginx/*json
+
+- job_name: journal
+  journal:
+    max_age: 12h
+    json: false
+    path: /varlogs/journal
+    labels:
+      job: journal
+      agent: promtail
+      host: {{ ansible_hostname }}
+  relabel_configs:
+    - source_labels: ['__journal__systemd_unit']
+      target_label: 'unit'
