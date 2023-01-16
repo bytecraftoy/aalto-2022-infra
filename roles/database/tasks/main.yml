@@ -1,6 +1,6 @@
 - name: Check that database password is set
   ansible.builtin.fail:
-      msg: PG_KEY is not set.
+    msg: PG_KEY is not set.
   when: (backend_database_password == "") and (not ansible_check_mode)
   no_log: true
 
