@@ -21,7 +21,7 @@
 - name: Copy database env config
   ansible.builtin.template:
     src: db_env.j2
-    dest: "{{ user_home }}/db_env"
+    dest: "/etc/db_env"
     owner: "{{ user_name }}"
     group: "{{ user_group }}"
     mode: "0750"
