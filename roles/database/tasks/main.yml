@@ -1,4 +1,10 @@
-- name: "Start and enable services"
+- name: Check that database password is set
+  ansible.builtin.fail:
+      msg: PG_KEY is not set.
+  when: backend_database_password == ""
+  no_log: true
+
+- name: Start and enable services
   service:
     name: postgresql
     state: started
