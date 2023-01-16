@@ -17,6 +17,7 @@
         db: "{{ backend_database_name }}"
         name: "{{ backend_database_user }}"
         password: "{{ backend_database_password }}"
+      no_log: true
 
     - name: Grant all priviliges to the backend user for backend db
       community.postgresql.postgresql_privs:
