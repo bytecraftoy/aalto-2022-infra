@@ -22,9 +22,9 @@
   ansible.builtin.template:
     src: db_env.j2
     dest: "/etc/db_env"
-    owner: "{{ user_name }}"
-    group: "{{ user_group }}"
-    mode: "0750"
+    owner: root
+    group: root
+    mode: "0600"
   # dont leak password in logs
   no_log: true
 
