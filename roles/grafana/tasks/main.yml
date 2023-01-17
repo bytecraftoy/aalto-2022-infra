@@ -2,13 +2,13 @@
   ansible.builtin.file:
     path: /root/grafana
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Create mount root folder directory
   ansible.builtin.file:
     path: /var/lib/grafana
     state: directory
-    mode: '0750'
+    mode: "0750"
 
 - name: Check if docker-compose.yml already exists
   ansible.builtin.stat:
@@ -29,7 +29,7 @@
     dest: /root/grafana/docker-compose.yml
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy Grafana config
   ansible.builtin.template:

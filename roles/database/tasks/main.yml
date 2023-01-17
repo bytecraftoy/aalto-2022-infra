@@ -1,0 +1,34 @@
+- name: Check that database password is set
+  ansible.builtin.fail:
+    msg: PG_KEY is not set.
+  when: (backend_database_password == "") and (not ansible_check_mode)
+  no_log: true
+
+- name: Start and enable services
+  service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: Configure database
+  become: true
+  become_user: postgres
+  block:
+    - name: Create a new database for backend
+      community.postgresql.postgresql_db:
+        name: "{{ backend_database_name }}"
+
+    - name: Create backend database user
+      community.postgresql.postgresql_user:
+        db: "{{ backend_database_name }}"
+        name: "{{ backend_database_user }}"
+        password: "{{ backend_database_password }}"
+      no_log: true
+
+    - name: Grant all priviliges to the backend user for backend db
+      community.postgresql.postgresql_privs:
+        type: database
+        db: "{{ backend_database_name }}"
+        role: "{{ backend_database_user }}"
+        privs: ALL
+        grant_option: false

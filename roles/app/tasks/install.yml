@@ -14,9 +14,19 @@
     src: index.js
     dest: "{{ live_dir }}"
     owner: "{{ user_name }}"
-    group: "{{ user_name }}"
+    group: "{{ user_group }}"
     mode: "0755"
   when: not indexjs.stat.exists
+
+- name: Copy database env config
+  ansible.builtin.template:
+    src: db_env.j2
+    dest: "/etc/db_env"
+    owner: "{{ user_name }}"
+    group: "{{ user_group }}"
+    mode: "0750"
+  # dont leak password in logs
+  no_log: true
 
 - name: Install backend systemd unit file
   ansible.builtin.template:
