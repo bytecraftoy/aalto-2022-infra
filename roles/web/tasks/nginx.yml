@@ -100,14 +100,17 @@
         msg: "{{ ansible_failed_result }}"
 
   always:
-    - name: Delete backup files
+    - name: Delete backend backup
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{ conf_backend['backup_file'] }}"
         state: absent
-      with_items:
-        - "{{ conf_backend['backup_file'] }}"
-        - "{{ conf_main['backup_file'] }}"
-      when: not ansible_check_mode
+      when: (not ansible_check_mode) and (conf_backend.changed)
+
+    - name: Delete main backup
+      ansible.builtin.file:
+        path: "{{ conf_main['backup_file'] }}"
+        state: absent
+      when: (not ansible_check_mode) and (conf_main.changed)
 
 - name: Open up TCP ports 80 and 443
   community.general.ufw:
