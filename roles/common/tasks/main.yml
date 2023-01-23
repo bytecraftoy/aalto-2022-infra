@@ -8,6 +8,7 @@
     - docker-compose
     - docker.io
     - postgresql
+    - postgresql-contrib
     - python3-psycopg2
     - sudo
     - ufw
