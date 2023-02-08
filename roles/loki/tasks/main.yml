@@ -1,3 +1,10 @@
+- name: Create user for alertmanager
+  ansible.builtin.user:
+    name: "alertmanager"
+    group: "alertmanager"
+    shell: /bin/false
+    system: true
+
 - name: Create a network to connect containers with
   community.docker.docker_network:
     name: loki
@@ -58,6 +65,15 @@
     owner: 0
     group: 0
     mode: "0750"
+
+- name: Copy Alertmanager config
+  ansible.builtin.template:
+    src: alertmanager-config.yml.j2
+    dest: /etc/alertmanager.yml
+    owner: "alertmanager"
+    group: "alertmanager"
+    mode: "640"
+    backup: true
 
 - name: Run docker compose to create Loki+Promtail container
   community.docker.docker_compose:
