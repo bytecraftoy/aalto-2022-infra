@@ -1,13 +1,13 @@
 - name: Create group for alertmanager
   ansible.builtin.group:
-    name: "alertmanager"
+    name: "{{ alertmanager_group }}"
     gid: "{{ alertmanager_gid }}"
     state: present
 
 - name: Create user for alertmanager
   ansible.builtin.user:
-    name: "alertmanager"
-    group: "alertmanager"
+    name: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
     uid: "{{ alertmanager_uid }}"
     shell: /bin/false
     system: true
