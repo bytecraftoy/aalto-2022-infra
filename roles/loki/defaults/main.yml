@@ -1,0 +1,1 @@
+alertmanager_webhook_url: "{{ lookup('ansible.builtin.env', 'WEBHOOK_URL') }}"
