@@ -1,1 +1,5 @@
 alertmanager_webhook_url: "{{ lookup('ansible.builtin.env', 'WEBHOOK_URL') }}"
+alertmanager_user: "alertmanager"
+alertmanager_group: "alertmanager"
+alertmanager_uid: "1666"
+alertmanager_gid: "1666"
