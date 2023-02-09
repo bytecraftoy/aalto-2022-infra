@@ -21,4 +21,5 @@ jobs:
         - name: Run Ansible
           env:
             PG_KEY: ${{ secrets.PG_KEY }}
+            WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           run: ansible-playbook --diff site.yml -i hosts
