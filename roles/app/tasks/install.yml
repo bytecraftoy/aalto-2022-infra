@@ -25,6 +25,7 @@
     owner: root
     group: root
     mode: "0600"
+    backup: true
   # dont leak password in logs
   no_log: true
 
