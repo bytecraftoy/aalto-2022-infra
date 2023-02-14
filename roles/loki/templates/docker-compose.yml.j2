@@ -34,7 +34,7 @@ services:
     ports:
       - "9093:9093"
     command: -config.file=/etc/alertmanager.yml
-    user: alertmanager
+    user: "{{ alertmanager_uid }}:{{ alertmanager_gid }}"
     volumes:
       - /etc/alertmanager.yml:/etc/alertmanager.yml:ro
       - /var/lib/alertmanager:/alertmanager
