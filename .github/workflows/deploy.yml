@@ -23,13 +23,8 @@ jobs:
           PG_KEY: ${{ secrets.PG_KEY }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: ansible-playbook --diff site.yml -i hosts
-
-  alert:
-    needs: [deploy]
-    if: ${{ failure() }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Alert on failed deployment
+        if: ${{ failure() }}
         uses: ravsamhq/notify-slack-action@v2
         with:
           status: ${{ job.status }}
