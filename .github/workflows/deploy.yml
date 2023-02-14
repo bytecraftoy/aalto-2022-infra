@@ -1,4 +1,4 @@
-name: deploy
+name: Run Ansible in deploy mode
 
 concurrency:
   group: main
