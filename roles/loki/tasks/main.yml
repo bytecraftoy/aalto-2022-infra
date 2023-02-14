@@ -82,6 +82,14 @@
     mode: "640"
     backup: true
 
+- name: Create Alertmanager storage folder
+  ansible.builtin.file:
+    path: /var/lib/alertmanager
+    state: directory
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_group }}"
+    mode: "0750"
+
 - name: Run docker compose to create Loki+Promtail container
   community.docker.docker_compose:
     project_src: /root/loki
