@@ -1,8 +1,13 @@
-name: Run ansible in deploy mode
+name: Run Ansible in deploy mode
+
+concurrency:
+  group: main
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
