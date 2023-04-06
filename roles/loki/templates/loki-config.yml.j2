@@ -34,6 +34,16 @@ schema_config:
         prefix: index_
         period: 24h
 
+groups:
+  rules:
+    - alert: "backend_errors"
+      expr: "sum(count_over_time({job=\"journal\",unit=\"aalto_2022_backend.service\"} | json | level = \"error\" [1h])) > 0"
+      for: "1m"
+      annotations:
+        title: "Backend reported error!"
+      labels:
+        severity: "critical"
+
 ruler:
   alertmanager_url: http://localhost:9093
 
