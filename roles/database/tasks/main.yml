@@ -32,3 +32,17 @@
         role: "{{ backend_database_user }}"
         privs: ALL
         grant_option: false
+
+    - name: Create adminjs database user
+      community.postgresql.postgresql_user:
+        db: "{{ backend_database_name }}"
+        name: "{{ adminjs_database_user }}"
+        password: "{{ adminjs_database_password }}"
+      no_log: true
+
+    - name: Grant all priviliges to the backend user for backend db
+      community.postgresql.postgresql_privs:
+        type: database
+        db: "{{ backend_database_name }}"
+        role: "{{ adminjs_database_user }}"
+        privs: ALL
