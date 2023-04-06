@@ -27,6 +27,7 @@ jobs:
         env:
           PG_KEY: ${{ secrets.PG_KEY }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          POSTGRES_ADMINJS_PASSWORD: ${{ secrets.POSTGRES_ADMINJS_PASSWORD }}
         run: ansible-playbook --diff site.yml -i hosts
       - name: Alert on failed deployment
         if: ${{ failure() }}
