@@ -18,6 +18,10 @@ server {
     root /srv/http;
     index index.html;
 
+    location / {
+        try_files $uri /index.html;
+    }
+
     location /api {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP  $remote_addr;
