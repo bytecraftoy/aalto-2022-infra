@@ -13,6 +13,7 @@ services:
     command: -config.file=/etc/loki.yml
     volumes:
       - /etc/loki.yml:/etc/loki.yml:ro
+      - /etc/loki-rules:/etc/loki-rules:ro
       - /var/lib/loki:/var/lib/loki
     networks:
       - loki
