@@ -31,6 +31,17 @@ server {
         proxy_pass http://backend;
     }
 
+    location /admin/adminjs {
+        access_log /var/log/nginx/access_adminjs.json json_analytics;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_pass http://backend;
+    }
+
     location /admin/grafana/ {
         access_log /var/log/nginx/access_grafana.json json_analytics;
 
